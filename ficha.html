@@ -40,31 +40,32 @@
 
         <!-- PROGRESSÃO -->
 
-        <h2>Progressão</h2>
+  <h2>Progressão</h2>
 
-        <p>
-            Nível:
-            <strong id="nivel">5</strong>
-        </p>
+<p>
+    Nível:
+    <strong id="nivel">5</strong>
+</p>
 
-        <p>
-            XP:
-            <strong id="xp">0</strong>
-            /
-            <strong id="xpNecessario">100</strong>
-        </p>
+<div>
+    <label>XP</label>
 
-        <input
-            type="number"
-            id="xpGanho"
-            placeholder="Quantidade de XP"
-        >
+    <div class="xp-controle">
+        <button type="button" onclick="removerXP()">−</button>
 
-        <button onclick="adicionarXP()">
-            Adicionar XP
-        </button>
+        <span id="xp">0</span>
 
+        <button type="button" onclick="adicionarXP()">+</button>
+    </div>
 
+    <label>Quantidade de XP</label>
+    <input type="number" id="xpGanho" min="1" placeholder="Quanto XP?">
+
+    <p>
+        Próximo nível:
+        <span id="xpNecessario">100</span> XP
+    </p>
+</div>
         <!-- HP -->
 
         <h2>HP</h2>
