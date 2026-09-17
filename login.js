@@ -41,14 +41,18 @@ async function entrar() {
 
     const user = data.user;
 
-    const { data: perfil, error: erroPerfil } =
-        await supabaseClient
-            .from("profiles")
-            .select("role")
-            .eq("id", user.id)
-            .single();
+    console.log("USUÁRIO LOGADO:", user.id);
 
+const { data: perfil, error: erroPerfil } =
+    await supabaseClient
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
 
+console.log("PERFIL:", perfil);
+console.log("ERRO PERFIL:", erroPerfil);
+    
     if (erroPerfil || !perfil) {
 
         mensagem.textContent =
