@@ -35,9 +35,49 @@ async function entrar() {
     }
 
 
+    // ==========================================
+    // VERIFICAR SE É GM OU JOGADOR
+    // ==========================================
+
+    const user = data.user;
+
+    const { data: perfil, error: erroPerfil } =
+        await supabaseClient
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+
+
+    if (erroPerfil || !perfil) {
+
+        mensagem.textContent =
+            "Não foi possível verificar o perfil.";
+
+        return;
+    }
+
+
     mensagem.textContent =
         "Login realizado!";
 
+
+    // ==========================================
+    // REDIRECIONAMENTO
+    // ==========================================
+
+    if (perfil.role === "gm") {
+
+        window.location.href =
+            "gm.html";
+
+    } else {
+
+        window.location.href =
+            "ficha.html";
+
+    }
+}
 
     window.location.href =
         "ficha.html";
