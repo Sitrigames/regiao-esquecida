@@ -1,0 +1,551 @@
+/* ============================= */
+/* CONFIGURAÇÕES GERAIS */
+/* ============================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f18;
+    color: #f3f4f6;
+}
+
+
+/* ============================= */
+/* FICHA PRINCIPAL */
+/* ============================= */
+
+.ficha {
+    width: 92%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 35px;
+
+    background: #151b28;
+
+    border: 1px solid #2d3748;
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ============================= */
+/* TÍTULOS */
+/* ============================= */
+
+.ficha > h1 {
+    margin: 0;
+    text-align: center;
+
+    font-size: 32px;
+    letter-spacing: 3px;
+}
+
+.ficha > h2 {
+    margin-top: 35px;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #374151;
+
+    font-size: 21px;
+}
+
+.ficha h3 {
+    margin-top: 0;
+}
+
+
+/* ============================= */
+/* TEXTOS */
+/* ============================= */
+
+label {
+    display: block;
+
+    margin-top: 15px;
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    color: #aeb8c7;
+}
+
+p {
+    color: #cbd5e1;
+}
+
+
+/* ============================= */
+/* INPUTS */
+/* ============================= */
+
+input,
+select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    background: #0f1521;
+    color: white;
+
+    border: 1px solid #374151;
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: #718096;
+
+    box-shadow: 0 0 0 2px rgba(113, 128, 150, 0.15);
+}
+
+
+/* ============================= */
+/* BOTÕES */
+/* ============================= */
+
+button {
+    padding: 9px 14px;
+
+    background: #273244;
+    color: white;
+
+    border: 1px solid #3b4658;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #344157;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+
+/* ============================= */
+/* HP */
+/* ============================= */
+
+.barra-hp {
+    width: 100%;
+    height: 28px;
+
+    margin: 15px 0 20px;
+
+    background: #252d3a;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+.hp-atual {
+    width: 100%;
+    height: 100%;
+
+    background: #22c55e;
+
+    transition: width 0.3s ease;
+}
+
+
+/* ============================= */
+/* ATRIBUTOS */
+/* ============================= */
+
+.atributos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.atributos div {
+    padding: 18px 12px;
+
+    background: #1d2635;
+
+    border: 1px solid #303b4d;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    transition: 0.2s;
+}
+
+.atributos div:hover {
+    transform: translateY(-3px);
+
+    border-color: #4b5b72;
+}
+
+.atributos strong {
+    font-size: 14px;
+
+    color: #aeb8c7;
+}
+
+.atributos p {
+    margin: 12px 0;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+    color: white;
+}
+
+.atributos button {
+    width: 35px;
+    height: 35px;
+
+    padding: 0;
+
+    border-radius: 50%;
+
+    font-size: 20px;
+}
+
+
+/* ============================= */
+/* GOLPES */
+/* ============================= */
+
+.golpes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+
+    margin-top: 20px;
+}
+
+.golpe {
+    padding: 22px;
+
+    background: #1d2635;
+
+    border: 1px solid #303b4d;
+
+    border-radius: 15px;
+}
+
+.golpe h3 {
+    margin-bottom: 20px;
+
+    color: #e5e7eb;
+}
+
+.golpe label {
+    margin-top: 12px;
+}
+
+
+/* ============================= */
+/* GOLPES BLOQUEADOS */
+/* ============================= */
+
+#slotGolpe3,
+#slotGolpe4 {
+    min-height: 180px;
+}
+
+#bloqueioGolpe3,
+#bloqueioGolpe4 {
+    color: #7f8a9c;
+
+    text-align: center;
+
+    margin-top: 40px;
+}
+
+
+/* ============================= */
+/* PONTOS */
+/* ============================= */
+
+#pontos {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background: #273244;
+
+    border-radius: 8px;
+
+    font-size: 18px;
+}
+
+
+/* ============================= */
+/* MENSAGEM */
+/* ============================= */
+
+#mensagem {
+    text-align: center;
+
+    margin-top: 18px;
+
+    font-weight: bold;
+}
+
+
+/* ============================= */
+/* RESPONSIVO */
+/* ============================= */
+
+@media (max-width: 700px) {
+
+    .ficha {
+        width: 95%;
+
+        padding: 22px;
+
+        margin: 20px auto;
+    }
+
+
+    .ficha > h1 {
+        font-size: 25px;
+    }
+
+
+    .atributos {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .golpes {
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+/* =========================
+   PAINEL DO GM
+========================= */
+
+.ficha-gm {
+    margin-top: 25px;
+    padding: 25px;
+    background: #1d2635;
+    border: 1px solid #303b4d;
+    border-radius: 16px;
+}
+
+.ficha-gm h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.ficha-gm h3 {
+    margin-top: 25px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #374151;
+}
+
+.ficha-gm hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #374151;
+}
+
+.atributos-gm {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.atributos-gm div {
+    padding: 12px;
+    background: #151b28;
+    border: 1px solid #303b4d;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.atributos-gm strong {
+    display: block;
+    color: #aeb8c7;
+    font-size: 13px;
+}
+
+.atributos-gm span {
+    display: block;
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.golpes-gm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.golpe-gm {
+    padding: 18px;
+    background: #151b28;
+    border: 1px solid #303b4d;
+    border-radius: 12px;
+}
+
+.golpe-gm h4 {
+    margin: 0 0 15px;
+    font-size: 17px;
+}
+
+.golpe-gm p {
+    margin: 7px 0;
+    font-size: 14px;
+}
+
+/* Celular */
+
+@media (max-width: 700px) {
+
+    .atributos-gm {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .golpes-gm {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   TELA DE MORTE
+========================= */
+
+.tela-morte {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.85);
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+}
+
+.aviso-morte {
+    width: 90%;
+    max-width: 500px;
+
+    padding: 40px;
+
+    background: #151b28;
+    border: 2px solid #7f1d1d;
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.aviso-morte h2 {
+    margin-top: 0;
+
+    font-size: 30px;
+    color: #ef4444;
+}
+
+.aviso-morte p {
+    font-size: 17px;
+}
+
+.aviso-morte p:nth-of-type(2) {
+    margin-bottom: 30px;
+}
+
+.aviso-morte button {
+    padding: 12px 25px;
+
+    background: #7f1d1d;
+    border-color: #991b1b;
+
+    font-weight: bold;
+}
+
+.aviso-morte button:hover {
+    background: #991b1b;
+}
+.inventario {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.item-inventario {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 12px;
+}
+
+.item-inventario input {
+    margin: 0;
+}
+
+#itemEquipado {
+    margin-top: 5px;
+}
+
+#condicao {
+    margin-top: 5px;
+}
+
+@media(max-width:700px) {
+    .item-inventario {
+        grid-template-columns: 1fr;
+    }
+}
+.inventario-gm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.item-gm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #151b28;
+    border: 1px solid #303b4d;
+    border-radius: 9px;
+}
+
+.item-gm span {
+    color: #aeb8c7;
+}

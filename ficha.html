@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ficha - Região Esquecida</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="ficha">
+
+        <h1>REGIÃO ESQUECIDA</h1>
+        <h2>Ficha do Pokémon</h2>
+
+
+        <!-- INFORMAÇÕES -->
+
+        <h2>Informações</h2>
+
+        <label>Nome</label>
+        <input type="text" id="nome" placeholder="Nome do Pokémon">
+
+        <label>Espécie</label>
+        <input type="text" id="especie" placeholder="Espécie">
+
+        <label>Tipo 1</label>
+        <input type="text" id="tipo1" placeholder="Tipo">
+
+        <label>Tipo 2</label>
+        <input type="text" id="tipo2" placeholder="Tipo">
+
+        <label>Habilidade</label>
+        <input type="text" id="habilidade" placeholder="Habilidade">
+
+
+        <!-- PROGRESSÃO -->
+
+        <h2>Progressão</h2>
+
+        <p>
+            Nível:
+            <strong id="nivel">5</strong>
+        </p>
+
+        <p>
+            XP:
+            <strong id="xp">0</strong>
+            /
+            <strong id="xpNecessario">100</strong>
+        </p>
+
+        <input
+            type="number"
+            id="xpGanho"
+            placeholder="Quantidade de XP"
+        >
+
+        <button onclick="adicionarXP()">
+            Adicionar XP
+        </button>
+
+
+        <!-- HP -->
+
+        <h2>HP</h2>
+
+        <p>
+            <strong id="hpAtual">20</strong>
+            /
+            <strong id="hpMaximo">20</strong>
+        </p>
+
+        <div class="barra-hp">
+
+            <div
+                id="barraHP"
+                class="hp-atual">
+            </div>
+
+        </div>
+
+        <input
+            type="number"
+            id="valorHP"
+            placeholder="Quantidade"
+        >
+
+        <button onclick="receberDano()">
+            Receber dano
+        </button>
+
+        <button onclick="receberCura()">
+            Receber cura
+        </button>
+
+
+        <h3>Distribuir pontos</h3>
+
+        <p>
+            HP Máximo:
+            <strong id="hpMaximoAtributo">20</strong>
+
+            <button onclick="aumentarAtributo('hp')">
+                +
+            </button>
+        </p>
+
+
+        <!-- ATRIBUTOS -->
+
+        <h2>Atributos</h2>
+
+        <p>
+            Pontos disponíveis:
+            <strong id="pontos">0</strong>
+        </p>
+
+        <div class="atributos">
+
+            <div>
+                <strong>AT</strong>
+                <p id="at">10</p>
+                <button onclick="aumentarAtributo('at')">+</button>
+            </div>
+
+            <div>
+                <strong>DF</strong>
+                <p id="df">10</p>
+                <button onclick="aumentarAtributo('df')">+</button>
+            </div>
+
+            <div>
+                <strong>SA</strong>
+                <p id="sa">10</p>
+                <button onclick="aumentarAtributo('sa')">+</button>
+            </div>
+
+            <div>
+                <strong>SD</strong>
+                <p id="sd">10</p>
+                <button onclick="aumentarAtributo('sd')">+</button>
+            </div>
+
+            <div>
+                <strong>SP</strong>
+                <p id="sp">10</p>
+                <button onclick="aumentarAtributo('sp')">+</button>
+            </div>
+
+        </div>
+
+
+        <!-- GOLPES -->
+
+        <h2>Golpes</h2>
+
+        <div class="golpes">
+
+
+            <!-- GOLPE 1 -->
+
+            <div class="golpe">
+
+                <h3>Golpe 1</h3>
+
+                <label>Nome</label>
+
+                <input
+                    type="text"
+                    id="golpe1Nome"
+                    placeholder="Nome do golpe"
+                >
+
+                <label>Tipo</label>
+
+                <input
+                    type="text"
+                    id="golpe1Tipo"
+                    placeholder="Tipo"
+                >
+
+                <label>Categoria</label>
+
+                <select id="golpe1Categoria">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="Físico">
+                        Físico
+                    </option>
+
+                    <option value="Especial">
+                        Especial
+                    </option>
+
+                    <option value="Status">
+                        Status
+                    </option>
+
+                </select>
+
+                <label>Dano</label>
+
+                <input
+                    type="number"
+                    id="golpe1Dano"
+                    placeholder="Dano"
+                >
+
+                <label>Precisão</label>
+
+                <input
+                    type="text"
+                    id="golpe1Precisao"
+                    placeholder="Ex: 90"
+                >
+
+            </div>
+
+
+            <!-- GOLPE 2 -->
+
+            <div class="golpe">
+
+                <h3>Golpe 2</h3>
+
+                <label>Nome</label>
+
+                <input
+                    type="text"
+                    id="golpe2Nome"
+                    placeholder="Nome do golpe"
+                >
+
+                <label>Tipo</label>
+
+                <input
+                    type="text"
+                    id="golpe2Tipo"
+                    placeholder="Tipo"
+                >
+
+                <label>Categoria</label>
+
+                <select id="golpe2Categoria">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="Físico">
+                        Físico
+                    </option>
+
+                    <option value="Especial">
+                        Especial
+                    </option>
+
+                    <option value="Status">
+                        Status
+                    </option>
+
+                </select>
+
+                <label>Dano</label>
+
+                <input
+                    type="number"
+                    id="golpe2Dano"
+                    placeholder="Dano"
+                >
+
+                <label>Precisão</label>
+
+                <input
+                    type="text"
+                    id="golpe2Precisao"
+                    placeholder="Ex: 90"
+                >
+
+            </div>
+
+
+            <!-- GOLPE 3 -->
+
+            <div
+                class="golpe"
+                id="slotGolpe3"
+            >
+
+                <h3>🔒 Golpe 3</h3>
+
+                <p id="bloqueioGolpe3">
+                    Desbloqueia no nível 18.
+                </p>
+
+                <div id="camposGolpe3" style="display: none;">
+
+                    <label>Nome</label>
+
+                    <input
+                        type="text"
+                        id="golpe3Nome"
+                        placeholder="Nome do golpe"
+                    >
+
+                    <label>Tipo</label>
+
+                    <input
+                        type="text"
+                        id="golpe3Tipo"
+                        placeholder="Tipo"
+                    >
+
+                    <label>Categoria</label>
+
+                    <select id="golpe3Categoria">
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="Físico">
+                            Físico
+                        </option>
+
+                        <option value="Especial">
+                            Especial
+                        </option>
+
+                        <option value="Status">
+                            Status
+                        </option>
+
+                    </select>
+
+                    <label>Dano</label>
+
+                    <input
+                        type="number"
+                        id="golpe3Dano"
+                        placeholder="Dano"
+                    >
+
+                    <label>Precisão</label>
+
+                    <input
+                        type="text"
+                        id="golpe3Precisao"
+                        placeholder="Ex: 90"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- GOLPE 4 -->
+
+            <div
+                class="golpe"
+                id="slotGolpe4"
+            >
+
+                <h3>🔒 Golpe 4</h3>
+
+                <p id="bloqueioGolpe4">
+                    Desbloqueia no nível 38.
+                </p>
+
+                <div id="camposGolpe4" style="display: none;">
+
+                    <label>Nome</label>
+
+                    <input
+                        type="text"
+                        id="golpe4Nome"
+                        placeholder="Nome do golpe"
+                    >
+
+                    <label>Tipo</label>
+
+                    <input
+                        type="text"
+                        id="golpe4Tipo"
+                        placeholder="Tipo"
+                    >
+
+                    <label>Categoria</label>
+
+                    <select id="golpe4Categoria">
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="Físico">
+                            Físico
+                        </option>
+
+                        <option value="Especial">
+                            Especial
+                        </option>
+
+                        <option value="Status">
+                            Status
+                        </option>
+
+                    </select>
+
+                    <label>Dano</label>
+
+                    <input
+                        type="number"
+                        id="golpe4Dano"
+                        placeholder="Dano"
+                    >
+
+                    <label>Precisão</label>
+
+                    <input
+                        type="text"
+                        id="golpe4Precisao"
+                        placeholder="Ex: 90"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h2>Inventário</h2>
+
+<div class="inventario">
+    <div class="item-inventario">
+        <input type="text" id="item1Nome" placeholder="Nome do item">
+        <input type="number" id="item1Quantidade" placeholder="Quantidade" min="0">
+    </div>
+
+    <div class="item-inventario">
+        <input type="text" id="item2Nome" placeholder="Nome do item">
+        <input type="number" id="item2Quantidade" placeholder="Quantidade" min="0">
+    </div>
+
+    <div class="item-inventario">
+        <input type="text" id="item3Nome" placeholder="Nome do item">
+        <input type="number" id="item3Quantidade" placeholder="Quantidade" min="0">
+    </div>
+
+    <div class="item-inventario">
+        <input type="text" id="item4Nome" placeholder="Nome do item">
+        <input type="number" id="item4Quantidade" placeholder="Quantidade" min="0">
+    </div>
+
+    <div class="item-inventario">
+        <input type="text" id="item5Nome" placeholder="Nome do item">
+        <input type="number" id="item5Quantidade" placeholder="Quantidade" min="0">
+    </div>
+
+     <div class="item-inventario">
+        <input type="text" id="item5Nome" placeholder="Nome do item">
+        <input type="number" id="item5Quantidade" placeholder="Quantidade" min="0">
+    </div>
+    
+</div>
+
+<h2>Item Equipado</h2>
+
+<label for="itemEquipado">Item segurado pelo Pokémon</label>
+<input type="text" id="itemEquipado" placeholder="Nenhum">
+
+<h2>Condição</h2>
+
+<label for="condicao">Condição atual do Pokémon</label>
+
+<select id="condicao">
+    <option value="Normal">Normal</option>
+    <option value="Envenenado">☠️ Envenenado</option>
+    <option value="Paralisado">⚡ Paralisado</option>
+    <option value="Dormindo">😴 Dormindo</option>
+    <option value="Queimado">🔥 Queimado</option>
+    <option value="Confuso">🌀 Confuso</option>
+    <option value="Congelado">❄️ Congelado</option>
+</select>
+
+        <!-- SALVAR -->
+
+        <button
+            onclick="salvarFicha()"
+            style="
+                margin-top: 30px;
+                width: 100%;
+                padding: 15px;
+                font-size: 18px;
+            "
+        >
+            💾 Salvar ficha
+        </button>
+
+        <p id="mensagem"></p>
+
+    </main>
+<div id="telaMorte" class="tela-morte">
+    <div class="aviso-morte">
+
+        <h2>HAHAHA você morreu!</h2>
+
+        <p>Quer dizer...</p>
+
+        <p>Que coisa triste... boa sorte na proxima</p>
+
+        <button onclick="resetarFicha()">
+            RESETAR FICHA
+        </button>
+
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase.js"></script>
+
+    <script src="script.js"></script>
+
+    
+</body>
+
+</html>

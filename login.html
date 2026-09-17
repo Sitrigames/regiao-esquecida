@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Região Esquecida</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="ficha">
+
+        <h1>REGIÃO ESQUECIDA</h1>
+
+        <h2>Entrar</h2>
+
+        <label>E-mail</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Seu e-mail"
+        >
+
+
+        <label>Senha</label>
+
+        <input
+            type="password"
+            id="senha"
+            placeholder="Sua senha"
+        >
+
+
+        <button onclick="entrar()">
+            Entrar
+        </button>
+
+
+        <p id="mensagem"></p>
+
+    </main>
+
+
+    <!-- Biblioteca do Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase.js"></script>
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>
