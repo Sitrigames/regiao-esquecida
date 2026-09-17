@@ -331,7 +331,6 @@ async function salvarFicha() {
     }
 }
 
-
 // ==========================================
 // XP
 // ==========================================
@@ -368,6 +367,33 @@ async function adicionarXP() {
     await salvarFicha();
 }
 
+
+async function removerXP() {
+
+    const campo = document.getElementById("xpGanho");
+
+    if (!campo) {
+        return;
+    }
+
+    const valor = Number(campo.value);
+
+    if (!valor || valor <= 0) {
+        return;
+    }
+
+    xp -= valor;
+
+    if (xp < 0) {
+        xp = 0;
+    }
+
+    campo.value = "";
+
+    atualizarTela();
+
+    await salvarFicha();
+}
 
 // ==========================================
 // LEVEL UP
