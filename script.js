@@ -12,11 +12,8 @@ let sa = 10;
 let sd = 10;
 let sp = 10;
 
-// Pontos ganhos por nível
-let pontos = 0;
-
-// 10 pontos iniciais
-let pontosIniciais = 10;
+// Pontos disponíveis para distribuir
+let pontos = 10;
 
 
 // ==========================================
@@ -66,7 +63,7 @@ async function carregarFicha(userId) {
 
 
     // ======================================
-    // CRIAR FICHA NOVA
+    // FICHA NOVA
     // ======================================
 
     if (!data) {
@@ -76,8 +73,7 @@ async function carregarFicha(userId) {
                 .from("fichas")
                 .insert({
                     user_id: userId,
-                    pontos: 0,
-                    pontos_iniciais: 10
+                    pontos: 10
                 })
                 .select()
                 .single();
@@ -85,18 +81,18 @@ async function carregarFicha(userId) {
         if (erroCriacao) {
 
             console.error(erroCriacao);
-
             return;
         }
 
         fichaId = novaFicha.id;
 
-        pontosIniciais = 10;
+        pontos = 10;
 
     }
 
+
     // ======================================
-    // CARREGAR FICHA EXISTENTE
+    // FICHA EXISTENTE
     // ======================================
 
     else {
@@ -115,29 +111,68 @@ async function carregarFicha(userId) {
         sd = data.sd ?? 10;
         sp = data.sp ?? 10;
 
-        pontos = data.pontos ?? 0;
 
-        // Fichas antigas recebem os 10 pontos
-        pontosIniciais =
-            data.pontos_iniciais ?? 10;
+        // Fichas antigas que ainda não receberam
+        // os 10 pontos recebem agora.
+        if (
+            data.pontos === null ||
+            data.pontos === undefined
+        ) {
+
+            pontos = 10;
+
+            await supabaseClient
+                .from("fichas")
+                .update({
+                    pontos: 10
+                })
+                .eq("id", fichaId);
+
+        } else {
+
+            pontos = data.pontos;
+        }
 
 
         // ==================================
         // INFORMAÇÕES
         // ==================================
 
-        const nome = document.getElementById("nome");
-        const especie = document.getElementById("especie");
-        const tipo1 = document.getElementById("tipo1");
-        const tipo2 = document.getElementById("tipo2");
-        const habilidade = document.getElementById("habilidade");
+        const nome =
+            document.getElementById("nome");
 
-        if (nome) nome.value = data.nome ?? "";
-        if (especie) especie.value = data.especie ?? "";
-        if (tipo1) tipo1.value = data.tipo1 ?? "";
-        if (tipo2) tipo2.value = data.tipo2 ?? "";
-        if (habilidade) habilidade.value = data.habilidade ?? "";
+        const especie =
+            document.getElementById("especie");
 
+        const tipo1 =
+            document.getElementById("tipo1");
+
+        const tipo2 =
+            document.getElementById("tipo2");
+
+        const habilidade =
+            document.getElementById("habilidade");
+
+
+        if (nome)
+            nome.value = data.nome ?? "";
+
+        if (especie)
+            especie.value = data.especie ?? "";
+
+        if (tipo1)
+            tipo1.value = data.tipo1 ?? "";
+
+        if (tipo2)
+            tipo2.value = data.tipo2 ?? "";
+
+        if (habilidade)
+            habilidade.value = data.habilidade ?? "";
+
+
+        // ==================================
+        // GOLPES
+        // ==================================
 
         carregarGolpes(data.golpes ?? []);
 
@@ -223,11 +258,20 @@ function carregarGolpes(golpes) {
             );
 
 
-        if (nome) nome.value = golpe.nome ?? "";
-        if (tipo) tipo.value = golpe.tipo ?? "";
-        if (categoria) categoria.value = golpe.categoria ?? "";
-        if (dano) dano.value = golpe.dano ?? "";
-        if (precisao) precisao.value = golpe.precisao ?? "";
+        if (nome)
+            nome.value = golpe.nome ?? "";
+
+        if (tipo)
+            tipo.value = golpe.tipo ?? "";
+
+        if (categoria)
+            categoria.value = golpe.categoria ?? "";
+
+        if (dano)
+            dano.value = golpe.dano ?? "";
+
+        if (precisao)
+            precisao.value = golpe.precisao ?? "";
     });
 }
 
@@ -251,6 +295,7 @@ function carregarInventario(inventario) {
             document.getElementById(
                 `item${numero}Quantidade`
             );
+
 
         if (nome) {
             nome.value = item.nome ?? "";
@@ -284,10 +329,14 @@ async function salvarFicha() {
     for (let i = 1; i <= 4; i++) {
 
         const nome =
-            document.getElementById(`golpe${i}Nome`);
+            document.getElementById(
+                `golpe${i}Nome`
+            );
 
         const tipo =
-            document.getElementById(`golpe${i}Tipo`);
+            document.getElementById(
+                `golpe${i}Tipo`
+            );
 
         const categoria =
             document.getElementById(
@@ -295,7 +344,9 @@ async function salvarFicha() {
             );
 
         const dano =
-            document.getElementById(`golpe${i}Dano`);
+            document.getElementById(
+                `golpe${i}Dano`
+            );
 
         const precisao =
             document.getElementById(
@@ -303,7 +354,10 @@ async function salvarFicha() {
             );
 
 
-        if (nome && nome.value.trim() !== "") {
+        if (
+            nome &&
+            nome.value.trim() !== ""
+        ) {
 
             golpes.push({
 
@@ -367,15 +421,28 @@ async function salvarFicha() {
 
 
     // ======================================
-    // OUTRAS INFORMAÇÕES
+    // ITEM EQUIPADO
     // ======================================
 
     const itemEquipado =
-        document.getElementById("itemEquipado");
+        document.getElementById(
+            "itemEquipado"
+        );
+
+
+    // ======================================
+    // CONDIÇÃO
+    // ======================================
 
     const condicao =
-        document.getElementById("condicao");
+        document.getElementById(
+            "condicao"
+        );
 
+
+    // ======================================
+    // DADOS
+    // ======================================
 
     const dados = {
 
@@ -417,18 +484,18 @@ async function salvarFicha() {
 
         pontos: pontos,
 
-        pontos_iniciais:
-            pontosIniciais,
-
 
         golpes: golpes,
 
+
         inventario: inventario,
+
 
         item_equipado:
             itemEquipado
                 ? itemEquipado.value
                 : "",
+
 
         condicao:
             condicao
@@ -453,7 +520,9 @@ async function salvarFicha() {
         console.error(error);
 
         const mensagem =
-            document.getElementById("mensagem");
+            document.getElementById(
+                "mensagem"
+            );
 
         if (mensagem) {
             mensagem.textContent =
@@ -465,7 +534,9 @@ async function salvarFicha() {
 
 
     const mensagem =
-        document.getElementById("mensagem");
+        document.getElementById(
+            "mensagem"
+        );
 
     if (mensagem) {
         mensagem.textContent =
@@ -487,7 +558,9 @@ function xpNecessario() {
 async function adicionarXP() {
 
     const campo =
-        document.getElementById("xpGanho");
+        document.getElementById(
+            "xpGanho"
+        );
 
     if (!campo) {
         return;
@@ -512,6 +585,7 @@ async function adicionarXP() {
 
 
     atualizarTela();
+
     atualizarSlotsGolpes();
 
 
@@ -519,10 +593,16 @@ async function adicionarXP() {
 }
 
 
+// ==========================================
+// REMOVER XP
+// ==========================================
+
 async function removerXP() {
 
     const campo =
-        document.getElementById("xpGanho");
+        document.getElementById(
+            "xpGanho"
+        );
 
     if (!campo) {
         return;
@@ -570,7 +650,10 @@ function verificarLevelUp() {
         nivel++;
 
 
-        // Aumento automático
+        // ==================================
+        // AUMENTOS AUTOMÁTICOS
+        // ==================================
+
         hpMaximo += 3;
         hpAtual += 3;
 
@@ -581,7 +664,10 @@ function verificarLevelUp() {
         sp += 2;
 
 
-        // 5 pontos livres a cada 2 níveis
+        // ==================================
+        // 5 PONTOS A CADA 2 NÍVEIS
+        // ==================================
+
         if (
             nivel >= 7 &&
             (nivel - 5) % 2 === 0
@@ -596,6 +682,10 @@ function verificarLevelUp() {
         );
 
 
+        // ==================================
+        // GOLPE 3
+        // ==================================
+
         if (nivel === 18) {
 
             alert(
@@ -603,6 +693,10 @@ function verificarLevelUp() {
             );
         }
 
+
+        // ==================================
+        // GOLPE 4
+        // ==================================
 
         if (nivel === 38) {
 
@@ -641,6 +735,10 @@ function atualizarSlotsGolpes() {
         );
 
 
+    // ======================================
+    // GOLPE 3
+    // ======================================
+
     if (nivel >= 18) {
 
         if (bloqueio3)
@@ -658,6 +756,10 @@ function atualizarSlotsGolpes() {
             campos3.style.display = "none";
     }
 
+
+    // ======================================
+    // GOLPE 4
+    // ======================================
 
     if (nivel >= 38) {
 
@@ -685,7 +787,9 @@ function atualizarSlotsGolpes() {
 function receberDano() {
 
     const campo =
-        document.getElementById("valorHP");
+        document.getElementById(
+            "valorHP"
+        );
 
     if (!campo) {
         return;
@@ -733,7 +837,9 @@ function receberDano() {
 function receberCura() {
 
     const campo =
-        document.getElementById("valorHP");
+        document.getElementById(
+            "valorHP"
+        );
 
     if (!campo) {
         return;
@@ -772,11 +878,7 @@ function receberCura() {
 
 function aumentarAtributo(atributo) {
 
-    // Primeiro usa os 10 pontos iniciais
-    if (
-        pontosIniciais <= 0 &&
-        pontos <= 0
-    ) {
+    if (pontos <= 0) {
         return;
     }
 
@@ -832,15 +934,7 @@ function aumentarAtributo(atributo) {
     }
 
 
-    // Gasta primeiro os pontos iniciais
-    if (pontosIniciais > 0) {
-
-        pontosIniciais--;
-
-    } else {
-
-        pontos--;
-    }
+    pontos--;
 
 
     atualizarTela();
@@ -863,7 +957,7 @@ function diminuirAtributo(atributo) {
                 return;
             }
 
-            hpMaximo -= 1;
+            hpMaximo--;
 
             if (hpAtual > hpMaximo) {
                 hpAtual = hpMaximo;
@@ -933,12 +1027,7 @@ function diminuirAtributo(atributo) {
     }
 
 
-    // Devolve para os pontos iniciais
-    // enquanto eles ainda não foram todos gastos.
-    //
-    // Caso contrário, devolve para pontos de nível.
-
-    pontosIniciais++;
+    pontos++;
 
 
     atualizarTela();
@@ -953,8 +1042,14 @@ function diminuirAtributo(atributo) {
 
 function atualizarTela() {
 
+    // ======================================
+    // NÍVEL
+    // ======================================
+
     const nivelElemento =
-        document.getElementById("nivel");
+        document.getElementById(
+            "nivel"
+        );
 
     if (nivelElemento) {
 
@@ -963,8 +1058,14 @@ function atualizarTela() {
     }
 
 
+    // ======================================
+    // XP
+    // ======================================
+
     const xpElemento =
-        document.getElementById("xp");
+        document.getElementById(
+            "xp"
+        );
 
     if (xpElemento) {
 
@@ -993,18 +1094,24 @@ function atualizarTela() {
     // ======================================
 
     const hpAtualElemento =
-        document.getElementById("hpAtual");
+        document.getElementById(
+            "hpAtual"
+        );
 
     if (hpAtualElemento) {
+
         hpAtualElemento.textContent =
             hpAtual;
     }
 
 
     const hpMaximoElemento =
-        document.getElementById("hpMaximo");
+        document.getElementById(
+            "hpMaximo"
+        );
 
     if (hpMaximoElemento) {
+
         hpMaximoElemento.textContent =
             hpMaximo;
     }
@@ -1016,13 +1123,14 @@ function atualizarTela() {
         );
 
     if (hpMaximoAtributo) {
+
         hpMaximoAtributo.textContent =
             hpMaximo;
     }
 
 
     // ======================================
-    // BARRA HP
+    // BARRA DE HP
     // ======================================
 
     const barra =
@@ -1092,30 +1200,20 @@ function atualizarTela() {
     // ======================================
 
     const pontosElemento =
-        document.getElementById("pontos");
+        document.getElementById(
+            "pontos"
+        );
 
     if (pontosElemento) {
 
         pontosElemento.textContent =
-            pontos + pontosIniciais;
-    }
-
-
-    const pontosIniciaisElemento =
-        document.getElementById(
-            "pontosIniciais"
-        );
-
-    if (pontosIniciaisElemento) {
-
-        pontosIniciaisElemento.textContent =
-            pontos + pontosIniciais;
+            pontos;
     }
 }
 
 
 // ==========================================
-// TELA DE MORTE
+// MOSTRAR TELA DE MORTE
 // ==========================================
 
 function mostrarTelaMorte() {
@@ -1176,15 +1274,24 @@ async function resetarFicha() {
         document.getElementById("habilidade");
 
 
-    if (nome) nome.value = "";
-    if (especie) especie.value = "";
-    if (tipo1) tipo1.value = "";
-    if (tipo2) tipo2.value = "";
-    if (habilidade) habilidade.value = "";
+    if (nome)
+        nome.value = "";
+
+    if (especie)
+        especie.value = "";
+
+    if (tipo1)
+        tipo1.value = "";
+
+    if (tipo2)
+        tipo2.value = "";
+
+    if (habilidade)
+        habilidade.value = "";
 
 
     // ======================================
-    // PROGRESSÃO
+    // NÍVEL E XP
     // ======================================
 
     nivel = 5;
@@ -1214,8 +1321,9 @@ async function resetarFicha() {
     // PONTOS
     // ======================================
 
-    pontos = 0;
-    pontosIniciais = 10;
+    // IMPORTANTE:
+    // Uma ficha resetada volta a ter 10 pontos.
+    pontos = 10;
 
 
     // ======================================
@@ -1273,6 +1381,10 @@ async function resetarFicha() {
     }
 
 
+    // ======================================
+    // ITEM EQUIPADO
+    // ======================================
+
     const itemEquipado =
         document.getElementById(
             "itemEquipado"
@@ -1282,6 +1394,10 @@ async function resetarFicha() {
         itemEquipado.value = "";
     }
 
+
+    // ======================================
+    // CONDIÇÃO
+    // ======================================
 
     const condicao =
         document.getElementById(
@@ -1293,10 +1409,18 @@ async function resetarFicha() {
     }
 
 
+    // ======================================
+    // ATUALIZAR
+    // ======================================
+
     atualizarTela();
 
     atualizarSlotsGolpes();
 
+
+    // ======================================
+    // FECHAR TELA DE MORTE
+    // ======================================
 
     const tela =
         document.getElementById(
@@ -1307,6 +1431,10 @@ async function resetarFicha() {
         tela.style.display = "none";
     }
 
+
+    // ======================================
+    // SALVAR
+    // ======================================
 
     await salvarFicha();
 }
