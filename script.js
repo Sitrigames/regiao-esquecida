@@ -6,6 +6,8 @@ let xp = 0;
 let hpMaximo = 20;
 let hpAtual = 20;
 
+let pp = 30;
+
 let at = 10;
 let df = 10;
 let sa = 10;
@@ -73,7 +75,8 @@ async function carregarFicha(userId) {
                 .from("fichas")
                 .insert({
                     user_id: userId,
-                    pontos: 10
+                    pontos: 10,
+                    pp: 30
                 })
                 .select()
                 .single();
@@ -87,7 +90,7 @@ async function carregarFicha(userId) {
         fichaId = novaFicha.id;
 
         pontos = 10;
-
+        pp = 30;
     }
 
 
@@ -104,6 +107,8 @@ async function carregarFicha(userId) {
 
         hpMaximo = data.hp_maximo ?? 20;
         hpAtual = data.hp_atual ?? 20;
+
+        pp = data.pp ?? 30;
 
         at = data.at ?? 10;
         df = data.df ?? 10;
@@ -474,6 +479,8 @@ async function salvarFicha() {
         hp_maximo: hpMaximo,
         hp_atual: hpAtual,
 
+        pp: pp,
+
 
         at: at,
         df: df,
@@ -705,6 +712,38 @@ function verificarLevelUp() {
             );
         }
     }
+}
+
+
+// ==========================================
+// PP DOS GOLPES
+// ==========================================
+
+async function removerPP() {
+
+    if (pp <= 0) {
+        return;
+    }
+
+    pp--;
+
+    atualizarTela();
+
+    await salvarFicha();
+}
+
+
+async function adicionarPP() {
+
+    if (pp >= 30) {
+        return;
+    }
+
+    pp++;
+
+    atualizarTela();
+
+    await salvarFicha();
 }
 
 
@@ -1209,6 +1248,22 @@ function atualizarTela() {
         pontosElemento.textContent =
             pontos;
     }
+
+
+    // ======================================
+    // PP DOS GOLPES
+    // ======================================
+
+    const ppElemento =
+        document.getElementById(
+            "pp"
+        );
+
+    if (ppElemento) {
+
+        ppElemento.textContent =
+            pp;
+    }
 }
 
 
@@ -1307,6 +1362,13 @@ async function resetarFicha() {
 
 
     // ======================================
+    // PP
+    // ======================================
+
+    pp = 30;
+
+
+    // ======================================
     // ATRIBUTOS
     // ======================================
 
@@ -1321,7 +1383,6 @@ async function resetarFicha() {
     // PONTOS
     // ======================================
 
-    // IMPORTANTE:
     // Uma ficha resetada volta a ter 10 pontos.
     pontos = 10;
 
