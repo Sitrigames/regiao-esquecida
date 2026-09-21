@@ -115,31 +115,52 @@ async function carregarFichasGM() {
             </p>
 
             <h3>HP</h3>
-<p><strong>HP:</strong> ${ficha.hp_atual} / ${ficha.hp_maximo}</p>
 
-<h3>Condição</h3>
-<p><strong>Estado:</strong> ${ficha.condicao || "Normal"}</p>
+            <p>
+                <strong>HP:</strong>
+                ${ficha.hp_atual} / ${ficha.hp_maximo}
+            </p>
 
-<h3>Item Equipado</h3>
-<p><strong>Item:</strong> ${ficha.item_equipado || "Nenhum"}</p>
+            <h3>PP dos Golpes</h3>
 
-<h3>Inventário</h3>
-<div class="inventario-gm">
-    ${
-        ficha.inventario && ficha.inventario.length > 0
-        ? ficha.inventario.map(item => `
-            <div class="item-gm">
-                <strong>${item.nome}</strong>
-                <span>× ${item.quantidade}</span>
+            <p>
+                <strong>PP:</strong>
+                ${ficha.pp ?? 30} / 30
+            </p>
+
+            <h3>Condição</h3>
+
+            <p>
+                <strong>Estado:</strong>
+                ${ficha.condicao || "Normal"}
+            </p>
+
+            <h3>Item Equipado</h3>
+
+            <p>
+                <strong>Item:</strong>
+                ${ficha.item_equipado || "Nenhum"}
+            </p>
+
+            <h3>Inventário</h3>
+
+            <div class="inventario-gm">
+                ${
+                    ficha.inventario && ficha.inventario.length > 0
+                    ? ficha.inventario.map(item => `
+                        <div class="item-gm">
+                            <strong>${item.nome}</strong>
+                            <span>× ${item.quantidade}</span>
+                        </div>
+                    `).join("")
+                    : "<p>Nenhum item no inventário.</p>"
+                }
             </div>
-        `).join("")
-        : "<p>Nenhum item no inventário.</p>"
-    }
-</div>
 
-<h3>Atributos</h3>
+            <h3>Atributos</h3>
 
             <div class="atributos-gm">
+
                 <div>
                     <strong>AT</strong>
                     <span>${ficha.at}</span>
@@ -164,6 +185,7 @@ async function carregarFichasGM() {
                     <strong>SP</strong>
                     <span>${ficha.sp}</span>
                 </div>
+
             </div>
 
             <h3>Golpes</h3>
